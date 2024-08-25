@@ -1,0 +1,48 @@
+﻿@using DataLayer.Model_Hatalar
+@model JsonHata
+@{
+    ViewData["Title"] = "Makaleler";
+}
+
+<h1>Makaleler</h1>
+
+@if (TempData["Requirements"] != null)
+{
+    // JSON verisini deseralize et
+    var requirementsJson = TempData["Requirements"] as string;
+    var requirements = Newtonsoft.Json.JsonConvert.DeserializeObject<List<JsonHata>>(requirementsJson);
+
+    if (requirements != null && requirements.Any())
+    {
+        <ul>
+            @foreach (var item in requirements)
+            {
+                <li>
+                    <strong>@item.Code</strong>: @item.Description
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No requirements found.</p>
+    }
+}
+else if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+else
+{
+    <p>No data available.</p>
+}
+
+<form asp-action="Makaleler" method="post">
+    <div class="form-group">
+        <label for="yazarid">Yazar ID:</label>
+        <input type="number" id="yazarid" name="yazarid" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Gönder</button>
+</form>

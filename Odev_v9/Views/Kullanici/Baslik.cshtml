@@ -1,0 +1,16 @@
+﻿@using DataLayer.Model_VM
+@model Sorgu
+@{
+    ViewData["Title"] = "Başlık Getir";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Getir" asp-controller="Home" method="post">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Getir</button>
+</form>
